@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz Timer Test</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .quiz_box, .timer { margin-top: 20px; }
+    .option { margin: 5px 0; cursor: pointer; border: 1px solid #ccc; padding: 10px; }
+    .correct { background: #d4edda; }
+    .incorrect { background: #f8d7da; }
+    .disabled { pointer-events: none; opacity: 0.6; }
+    .next_btn { margin-top: 20px; display: none; }
+    .show { display: inline-block !important; }
+    .timer { font-size: 20px; }
+  </style>
+</head>
+<body>
+
+  <button class="start_btn">Start Quiz</button>
+
+  <div class="quiz_box" style="display: none;">
+    <div class="timer">
+      <span class="time_left_txt">Time Left</span>: <span class="time_sec">15</span>
+    </div>
+    <div class="que_txt"></div>
+    <div class="option_list"></div>
+    <button class="next_btn">Next</button>
+  </div>
+
+  <script>
+    const start_btn = document.querySelector(".start_btn");
+    const quiz_box = document.querySelector(".quiz_box");
+    const timeCount = document.querySelector(".time_sec");
+    const timetext = document.querySelector(".time_left_txt");
+    const option_list = document.querySelector(".option_list");
+    const next_btn = document.querySelector(".next_btn");
+    const que_text = document.querySelector(".que_txt");
+
+    const questions = [
+      {
+        numb: 1,
+        question: "What is 2 + 2?",
+        answer: "4",
+        option: ["3", "4", "5", "6"]
+      },
+      {
+         numb: 2,
+        question: "What is 7 + 2?",
+        answer: "9",
+        option: ["3", "4", "9", "6"]
+      }
+    ];
+
+    let que_count = 0;
+    let userScore = 0;
+    let counter;
+    let timeValue = 15;
+
+    start_btn.onclick = () => {
+      start_btn.style.display = "none";
+      quiz_box.style.display = "block";
+      showQuestions(que_count);
+      startTimer(timeValue);
+    };
+
+    function showQuestions(index) {
+      que_text.innerHTML = `<span>${questions[index].numb}. ${questions[index].question}</span>`;
+      que_text.innerHTML = `<span>${questions[index].numb}. ${questions[index].question}</span>`;
+      option_list.innerHTML = "";
+
+      questions[index].option.forEach(opt => {
+        const div = document.createElement("div");
+        div.className = "option";
+        div.innerHTML = `<span>${opt}</span>`;
+        div.onclick = () => optionSelected(div);
+        option_list.appendChild(div);
+      });
+    }
+
+    function optionSelected(answer) {
+      clearInterval(counter);
+      const userAns = answer.textContent.trim();
+      const correctAns = questions[que_count].answer.trim();
+      const options = option_list.children;
+
+      if (userAns === correctAns) {
+        answer.classList.add("correct");
+      } else {
+        answer.classList.add("incorrect");
+        for (let opt of options) {
+          if (opt.textContent.trim() === correctAns) {
+            opt.classList.add("correct");
+          }
+        }
+      }
+
+      for (let opt of options) {
+        opt.classList.add("disabled");
+      }
+
+      next_btn.classList.add("show");
+    }
+
+    function startTimer(time) {
+      timeCount.textContent = time;
+      counter = setInterval(() => {
+        time--;
+        if (time >= 0) {
+          timeCount.textContent = time < 10 ? "0" + time : time;
+        }
+        if (time < 0) {
+          clearInterval(counter);
+          timetext.textContent = "Time Off";
+
+          const correctAns = questions[que_count].answer.trim();
+          const options = option_list.children;
+          for (let opt of options) {
+            if (opt.textContent.trim() === correctAns) {
+              opt.classList.add("correct");
+            }
+            opt.classList.add("disabled");
+          }
+
+          next_btn.classList.add("show");
+        }
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
