@@ -16,21 +16,34 @@ const bottom_ques_counter = document.querySelector("footer .total_que");
 const questions = [
     {
         numb: 1,
-        question: "What is 2 + 2?",
-        answer: "4",
-        option: ["3", "4", "5", "6"]
+        question: "Which HTML element is used to define important text?",
+        answer: "<strong>",
+        option: ["&lt;strong&gt;","&lt;tab&gt;", "important", "italic"]
     },
     {
         numb: 2,
-        question: "Which is the capital of France?",
-        answer: "Paris",
-        option: ["Rome", "London", "Berlin", "Paris"]
+        question: "In HTML, what does the <em> tag represent?",
+        answer: "Emphasis",
+        option: ["Element", "Emphasis", "Example", "Emotions"]
     },
     {
         numb: 3,
-        question: "Which is a programming language?",
-        answer: "JavaScript",
-        option: ["HTML", "CSS", "JavaScript", "Photoshop"]
+        question: "Which of the following define a table in HTML?",
+        answer: "<table>",
+        option:["&lt;tab&gt;", "&lt;table&gt;","&lt;tr&gt;", "&lt;td&gt;"]
+   },
+    {
+        numb: 4,
+        question: "Which of the following tags is used to create a dropdown list in HTML?",
+        answer: "<select>",
+        option: ["&lt;input&gt;", "&lt;select&gt;","&lt;dropdown&gt;", "&lt;list&gt;"]
+    
+    },
+    {
+        numb: 5,
+        question: "What is the correct HTML element for inserting a line break?",
+        answer: "<br>",
+        option: ["&lt;break&gt;", "&lt;lb&gt;","&lt;br&gt;", "&newline&gt;"]
     }
 ];
 
@@ -101,8 +114,8 @@ function showQuestions(index) {
 }
 
 // ===== Option Selected =====
-let tickIconTag = '<div class="icon tick"><i class="fas fa-check"></i></div>';
-let crossIconTag = '<div class="icon cross"><i class="fas fa-times"></i></div>';
+let tickIconTag = '<div class="icon tick text-center"><i class="fas fa-check"></i></div>';
+let crossIconTag = '<div class="icon cross text-center"><i class="fas fa-times"></i></div>';
 
 function optionSelected(answer) {
     clearInterval(counter);
@@ -119,12 +132,12 @@ function optionSelected(answer) {
         answer.classList.add("incorrect");
         answer.insertAdjacentHTML("beforeend", crossIconTag);
 
-        for (let i = 0; i < allOptions; i++) {
-            if (option_list.children[i].textContent.trim() === correctAns) {
-                option_list.children[i].classList.add("correct");
-                option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag);
-            }
-        }
+        // for (let i = 0; i < allOptions; i++) {
+        //     if (option_list.children[i].textContent.trim() === correctAns) {
+        //         option_list.children[i].classList.add("correct");
+        //         option_list.children[i].insertAdjacentHTML("beforeend", tickIconTag);
+        //     }
+        // }
     }
 
     for (let i = 0; i < allOptions; i++) {

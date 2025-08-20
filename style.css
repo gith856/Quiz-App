@@ -10,13 +10,15 @@
 body{
     background-color: #007bff;
 }
-
+select{
+    visibility: visible;
+}
 .start_btn,.info_box,.quiz_box,.result_box {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0, 0, 0 ,0.19);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 4px 8px 0 rgba(0, 0, 0 ,0.19);
 }
 .info_box.activeInfo,
 .quiz_box.activeQuiz,
@@ -115,7 +117,10 @@ body{
     justify-content: space-between;
     box-shadow: 0px 3px 5px 1px rgba(0, 0, 0 ,0.1);
 }
-
+.quiz_box header .title{
+        font-weight: 600;
+        font-size: 20px;
+    }
 .quiz_box header .timer{
     color: #004085;
     background-color: #cce5ff;
@@ -193,8 +198,13 @@ section .option_list .option:hover{
 }
 
 section .option_list .option.correct{
-    color: #721c24;
-    background-color: #f8d7da;
+    color: black;
+    background-color: lightgreen;
+    border: 1px solid #f5c6cd;
+}
+section .option_list .option.incorrect{
+    color: black;
+    background-color: rgb(234, 71, 35);
     border: 1px solid #f5c6cd;
 }
 
@@ -352,9 +362,8 @@ footer button.show{
     .start_btn button {
         font-size: 20px;
         padding: 12px 24px;
-        width: 80%;
+        width: 100%;
     }
-
     .info_box,
     .quiz_box,
     .result_box {
@@ -404,15 +413,19 @@ footer button.show{
         font-size: 15px;
         padding: 10px;
     }
-
+    .quiz_box header .title{
+        font-weight: 600;
+        font-size: 16px;
+    }
     .quiz_box header .timer {
-        width: 100%;
+        width: 50%;
         justify-content: space-between;
-        padding: 10px 0;
+        padding: 10px ;
     }
 
     .quiz_box header .timer .time_left_txt {
-        font-size: 14px;
+        font-size: 17px;
+        font-weight: 500;
     }
 
     .quiz_box header .timer .time_sec {
